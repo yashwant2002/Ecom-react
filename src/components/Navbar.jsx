@@ -4,6 +4,10 @@ import { Link } from "react-router-dom";
 import { Mens } from "./SubNavbar/Mens";
 import { Womens } from "./SubNavbar/Womens";
 import { Pages } from "./SubNavbar/Pages";
+import { IoSearch } from "react-icons/io5";
+import { FiShoppingBag } from "react-icons/fi";
+import { IconContext } from "react-icons";
+import './Narbar.css';
 
 function Navbar() {
 
@@ -39,22 +43,27 @@ function Navbar() {
   return (
     <>
       <div>
-        <div className=" bg-blue-600 w-full h-[80px] flex justify-around sticky items-center">
-          <div>LOGO</div>
-          <div className="flex justify-around">
-            <Link><div onMouseEnter={()=>{setMenu1('block'), setShow1(true)}}
+        <div className=" bg-white w-full h-[80px] flex justify-around sticky items-center z-10 shadow-xl ">
+          <div className="w-[10%] grid justify-center font-bold">LOGO</div>
+          <div className="flex w-[50%] contentHide items-stretch'">
+            <Link className="cborder " ><div className="py-6 px-11" onMouseEnter={()=>{setMenu1('block'), setShow1(true)}}
             onMouseLeave={()=>{setMenu1('block'), setShow1(false)}}>Demo</div></Link>
-            <Link><div onMouseEnter={()=>{setMenu2('block'), setShow2(true)}}
+            <Link className="cborder"><div className="py-6 px-11" onMouseEnter={()=>{setMenu2('block'), setShow2(true)}}
             onMouseLeave={()=>{setMenu1('hidden'), setShow2(false)}}>Mens</div></Link>
-            <Link onMouseEnter={()=>{setMenu3('block'), setShow3(true)}}
-            onMouseLeave={()=>{setMenu3('hidden'), setShow3(false)}}><div>Womans</div></Link>
-            <Link onMouseEnter={()=>{setMenu4('block'),setShow4(true)}}
-            onMouseLeave={()=>{setMenu4('hidden'), setShow4(false)}}><div>Pages</div></Link>
+            <Link className="cborder"><div className="py-6 px-11" onMouseEnter={()=>{setMenu3('block'), setShow3(true)}}
+            onMouseLeave={()=>{setMenu3('hidden'), setShow3(false)}}>Womans</div></Link>
+            <Link className="cborder" onMouseEnter={()=>{setMenu4('block'),setShow4(true)}}
+            onMouseLeave={()=>{setMenu4('hidden'), setShow4(false)}}><div className="py-6 px-11">Pages</div></Link>
           </div>
-          <div >
-            <Link>Search</Link>
-            <Link>Sign In</Link>
-            <Link>Add Cart</Link>
+          <div className="w-[40%] flex justify-around items-center" >
+            <div><button>English</button></div>
+            <div className="w-[30%] flex justify-around">
+                <IconContext.Provider value={{ className: "shared-class", size: 25 }}>
+                  <Link><IoSearch /></Link>
+                  <Link className=" font-semibold">Sign In</Link>
+                   <Link><FiShoppingBag /></Link>
+                </IconContext.Provider>
+            </div>
           </div>
         </div>
       </div>

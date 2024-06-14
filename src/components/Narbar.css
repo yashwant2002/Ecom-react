@@ -1,0 +1,10 @@
+.cborder :hover{
+    border-bottom: 4px solid black;
+}
+
+@media screen and (max-device-width: 1023px) { 
+    .contentHide{
+        display: none!important;
+        
+    }
+}

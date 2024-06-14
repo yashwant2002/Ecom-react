@@ -1,5 +1,5 @@
-import React from 'react'
 import axios from 'axios';
+import { HeroSection } from '../components/Home/HeroSection';
 
 const options = {
   method: 'GET',
@@ -15,7 +15,9 @@ try {
 
 function Home() {
   return (
-    <div>Home</div>
+    <div className=''>
+      <HeroSection/>
+    </div>
   )
 }
 
