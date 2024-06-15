@@ -43,7 +43,7 @@ function Navbar() {
   return (
     <>
       <div>
-        <div className=" bg-white w-full h-[80px] flex justify-around sticky items-center z-10 shadow-xl ">
+        <div className=" bg-white w-full h-[80px] flex justify-around sticky items-center z-10 shadow-lg ">
           <div className="w-[10%] grid justify-center font-bold">LOGO</div>
           <div className="flex w-[50%] contentHide items-stretch'">
             <Link className="cborder " ><div className="py-6 px-11" onMouseEnter={()=>{setMenu1('block'), setShow1(true)}}
@@ -57,7 +57,7 @@ function Navbar() {
           </div>
           <div className="w-[40%] flex justify-around items-center" >
             <div><button>English</button></div>
-            <div className="w-[30%] flex justify-around">
+            <div className="w-[30%] flex justify-around contentHide">
                 <IconContext.Provider value={{ className: "shared-class", size: 25 }}>
                   <Link><IoSearch /></Link>
                   <Link className=" font-semibold">Sign In</Link>

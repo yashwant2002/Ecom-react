@@ -20,5 +20,31 @@
                              'box2 box2 box2 box3 box3 box3'
                              'box4 box4 box4 box5 box5 box5'
                              'box6 box6 box6 box6 box6 box6';
+       gap: 10px;
     }
+    .product-sale{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: repeat(5,1fr);
+        gap: 10px;
+    }
+  }
+
+  .sale{
+    border: 1px solid gray;
+  }
+
+ 
+
+  /* .img-hover-border{
+    border: 1px solid black;
+  } */
+
+  @media (min-width: 1024px){
+    .product-sale{
+        display: grid;
+        grid-template-columns: repeat(5,1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 30px;
+      }
   }

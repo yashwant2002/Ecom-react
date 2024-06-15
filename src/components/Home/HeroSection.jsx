@@ -9,7 +9,7 @@ import banner_6 from '../Image/banner-6.jpg'
 
 export const HeroSection = () => {
   return (
-    <div className='  grid-container'>
+    <div className=' container m-3 mt-0  grid-container'>
         <div className='item-1'><img src={banner_1}/></div>
         <div className='item-2'><img src={banner_2}/></div>
         <div className='item-3'><img src={banner_3}/></div>
