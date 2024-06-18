@@ -77,6 +77,7 @@ function Home() {
                     <h3 className=" grid justify-center font-semibold text-sm lg:text-lg">
                       ${data.price}
                     </h3>
+                    <button>addCart</button>
                   </div>
                 </div>
               </Link>
