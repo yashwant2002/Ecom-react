@@ -12,6 +12,9 @@
 .item-5{grid-area: box5 ;}
 .item-6{grid-area: box6 ;}
 
+.round{
+  border-radius: 5px;
+}
 
 
 @media only screen and (max-width: 600px) {
@@ -27,6 +30,9 @@
         grid-template-columns: repeat(2,1fr);
         grid-template-rows: repeat(5,1fr);
         gap: 10px;
+    }
+    .round{
+      height: 10%;
     }
   }
 
@@ -48,3 +54,4 @@
         gap: 30px;
       }
   }
+  
