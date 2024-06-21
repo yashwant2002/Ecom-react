@@ -11,6 +11,7 @@
     "host": "vite --host"
   },
   "dependencies": {
+    "@headlessui/react": "^2.0.4",
     "@reduxjs/toolkit": "^2.2.5",
     "axios": "^1.7.2",
     "lucide-react": "^0.390.0",

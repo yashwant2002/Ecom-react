@@ -1,27 +1,39 @@
 import { HeroSection } from "../components/Home/HeroSection";
-import { useEffect, useState } from "react";
-
+import { useCallback, useEffect, useState } from "react";
 import "../components/Home/Home.css";
-import { Link } from "react-router-dom";
 import { SlideImageBar } from "../components/Home/SlideImageBar";
 import CategorySlider from "../components/Home/CategorySlider";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { addCart } from "../features/CartSlicer";
 
+// eslint-disable-next-line react/prop-types
 function Home() {
-  const [product, setProduct] = useState([]);
-
-  const getProducts = async () => {
-    try {
-      await fetch("https://fakestoreapi.com/products")
-        .then((res) => res.json())
-        .then((json) => setProduct(json));
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const [product, setProducts] = useState([]);
+  const dispatch = useDispatch();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectProduct, setSelectProduct] = useState(null);
 
   useEffect(() => {
-    getProducts();
+    axios.get('https://fakestoreapi.com/products')
+      .then(response => setProducts(response.data))
+      .catch(error => console.error('Error fetching products:', error));
   }, []);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const OpenDialog =useCallback( ()=>{
+    setSelectProduct(product);
+    setIsOpen(true);
+  }
+);
+  const CloseDialog = ()=>{
+    setSelectProduct(null);
+    setIsOpen(false);
+  }
+
+  const handleAddCart = useCallback((selectProduct)=>{
+    dispatch(addCart(selectProduct));
+  },[dispatch]);
   return (
     <div className="">
       <HeroSection />
@@ -30,7 +42,7 @@ function Home() {
         <div className="product-sale rounded-lg mt-5">
           {product.slice(0, 10).map((data) => {
             return (
-              <Link key={data.id}>
+              <button  key={data.id}>
                 <div className="transition-transform duration-500 ease-in-out transform hover:scale-110 img-hover-border">
                   <div>
                     <img
@@ -47,7 +59,7 @@ function Home() {
                     </h3>
                   </div>
                 </div>
-              </Link>
+              </button>
             );
           })}
         </div>
@@ -60,53 +72,52 @@ function Home() {
         <h1 className="text-xl lg:text-3xl font-bold">Feature Product</h1>
         <div className="grid grid-cols-1 gap-5 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 mt-5 lg:mt-10">
           <div>
-          {product.slice(0, 1).map((data) => {
-            return (
-              <Link key={data.id}>
-                <div className="transition-transform duration-500 ease-in-out transform hover:scale-110 img-hover-border">
-                  <div>
-                    <img
-                      className="rounded-lg aspect-square object-contain"
-                      src={data.image}
-                    />
+            {product.slice(0, 1).map((data) => {
+              return (
+                <button key={data.id}>
+                  <div >
+                    <div>
+                      <img
+                        className="rounded-lg aspect-square object-contain"
+                        src={data.image}
+                      />
+                    </div>
+                    <div className="mt-5">
+                      <h3 className=" font-bold justify-center grid text-md lg:text-xl ">
+                        {data.title}
+                      </h3>
+                      <h3 className=" grid justify-center font-semibold text-sm lg:text-lg">
+                        ${data.price}
+                      </h3>
+                    </div>
                   </div>
-                  <div  className="mt-5">
-                    <h3 className=" font-bold justify-center grid text-md lg:text-xl ">
-                      {data.title}
-                    </h3>
-                    <h3 className=" grid justify-center font-semibold text-sm lg:text-lg">
-                      ${data.price}
-                    </h3>
-                    <button>addCart</button>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+                </button>
+              );
+            })}
           </div>
           <div className="grid grid-rows-2 gap-12 lg:gap-5 grid-cols-2">
-          {product.slice(1, 5).map((data) => {
-            return (
-              <Link key={data.id}>
-                <div className="  transition-transform duration-500 ease-in-out transform hover:scale-110 img-hover-border">
-                  <div>
-                    <img
-                      className="rounded-lg aspect-square object-contain"
-                      src={data.image}
-                    />
+            {product.slice(12, 16).map((data) => {
+              return (
+                <button  key={data.id}>
+                  <div className="  transition-transform duration-500 ease-in-out transform hover:scale-105 img-hover-border">
+                    <div>
+                      <img
+                        className="rounded-lg aspect-square object-contain"
+                        src={data.image}
+                      />
+                    </div>
+                    <div>
+                      <h3 className=" font-bold text-md lg:text-xl ">
+                        {data.title}
+                      </h3>
+                      <h3 className=" font-semibold text-sm lg:text-lg">
+                        ${data.price}
+                      </h3>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className=" font-bold text-md lg:text-xl ">
-                      {data.title}
-                    </h3>
-                    <h3 className=" font-semibold text-sm lg:text-lg">
-                      ${data.price}
-                    </h3>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>

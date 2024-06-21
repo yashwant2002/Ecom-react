@@ -7,8 +7,11 @@ import Product from './pages/Product';
 import CategorySlider from './components/Home/CategorySlider';
 import CategoryPage from './components/Home/CategoryPage';
 import Footer from './components/Footer';
+import ProductCart from './components/ProductCart';
+import Addcart from './components/Addcart';
 
 function App() {
+
   return (
     <>
         <Navbar />
@@ -17,9 +20,10 @@ function App() {
           <Route path='/about' element={<About />} />
           <Route path='/contact' element={<Contact />} />
           <Route path='/product' element={<Product />} />
-          {/* <Route path='/cart' element={<Cart/>} /> */}
+          <Route path='/cart' element={<ProductCart/>} />
           <Route path="/" element={<CategorySlider />} exact />
           <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path='/items' element= {<Addcart/>}/>
         </Routes>
         <Footer/>
     </>
