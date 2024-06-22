@@ -21,6 +21,7 @@ import {
   Transition,
   TransitionChild,
   Switch,
+  Button,
 } from "@headlessui/react";
 
 function Navbar() {
@@ -36,7 +37,9 @@ function Navbar() {
 
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen1, setIsOpen1] = useState(false);
+  const [isOpen2, setIsOpen2] = useState(false);
   const [enabled, setEnabled] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const OpenDialog = () => {
     setIsOpen(true);
@@ -70,6 +73,21 @@ function Navbar() {
     setMenu4(Menu);
     setShow4(v);
   }, []);
+
+  function closeModal() {
+    setIsOpen2(false);
+  }
+
+  function openModal() {
+    setIsOpen2(true);
+  }
+  function openCartModal() {
+    setIsCartOpen(true);
+  }
+  
+  function closeCartModal() {
+    setIsCartOpen(false);
+  }
 
   return (
     <>
@@ -138,15 +156,15 @@ function Navbar() {
               <IconContext.Provider
                 value={{ className: "shared-class", size: 25 }}
               >
-                <Link>
+                <button onClick={openModal}>
                   <IoSearch />
-                </Link>
+                </button>
                 <button onClick={OpenDialog} className="font-semibold">
                   Sign In
                 </button>
-                <Link to="/cart">
+                <button onClick={openCartModal}>
                   <FiShoppingBag />
-                </Link>
+                </button>
               </IconContext.Provider>
             </div>
           </div>
@@ -157,7 +175,7 @@ function Navbar() {
       <Mens show={show2} CMenu={Menu2} parentCallback={callback2} />
       <Womens show={show3} CMenu={Menu3} parentCallback={callback3} />
       <Pages show={show4} CMenu={Menu4} parentCallback={callback4} />
-
+{/* -------------------------------------------Login----------------------------------------- */}
       <Transition appear show={isOpen}>
         <Dialog
           as="div"
@@ -282,7 +300,7 @@ function Navbar() {
           </div>
         </Dialog>
       </Transition>
-
+{/* ------------------------------------------Sign Up --------------------------------------- */}
       <Transition appear show={isOpen1}>
         <Dialog
           as="div"
@@ -399,6 +417,131 @@ function Navbar() {
           </div>
         </Dialog>
       </Transition>
+      {/* ---------------------------------------Search ------------------------------------------- */}
+      <Transition appear show={isOpen2} >
+        <Dialog as="div" className="fixed flex justify-center items-center inset-0 z-10 overflow-y-auto" onClose={closeModal}>
+          <div className="min-h-screen px-4 text-center">
+            <TransitionChild
+              enter="ease-out duration-300"
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 bg-black opacity-30" />
+            </TransitionChild>
+            <TransitionChild
+              enter="ease-out duration-300"
+              enterFrom="opacity-0 scale-95"
+              enterTo="opacity-100 scale-100"
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100 scale-100"
+              leaveTo="opacity-0 scale-95"
+            >
+             <div className="flex  max-w-md my-8 px-4 h-16 overflow-hidden text-left items-center transition-all transform bg-white shadow-xl rounded-xl">
+                <DialogTitle as="h3" className="text-lg mr-4 font-medium leading-6">
+                  <IoSearch/>
+                </DialogTitle>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Search..."
+                    className="w-full p-2 rounded-md outline-none"
+                  />
+                </div>
+                <div>
+                  <button
+                    type="button"
+                    className="flex justify-center px-4"
+                    onClick={closeModal}
+                  >
+                   <IoClose/>
+                  </button>
+                </div>
+              </div>
+            </TransitionChild>
+          </div>
+        </Dialog>
+      </Transition>
+      {/* -------------------------------Add to Cart -------------------------------- */}
+      <Transition appear show={isCartOpen}>
+  <Dialog
+    as="div"
+    open={isCartOpen}
+    onClose={closeCartModal}
+    className="fixed inset-0 z-10 overflow-y-auto"
+  >
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="fixed inset-0 bg-black opacity-80" />
+      <div className="fixed inset-0 flex w-screen items-center justify-center p-4">
+        <TransitionChild
+          enter="ease-out duration-300"
+          enterFrom="opacity-0 transform scale-95"
+          enterTo="opacity-100 transform scale-100"
+          leave="ease-in duration-200"
+          leaveFrom="opacity-100 transform scale-100"
+          leaveTo="opacity-0 transform scale-95"
+        >
+          <DialogPanel
+            style={{ width: "450px" }}
+            className="max-w-lg w-full space-y-4 border rounded-lg bg-white p-6"
+          >
+            <button
+              onClick={closeCartModal}
+              className="close fixed z-10 inline-flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-white shadow text-gray-600 transition duration-200 focus:outline-none focus:text-gray-800 focus:shadow-md hover:text-gray-800 hover:shadow-md"
+            >
+              <IoClose />
+            </button>
+            <DialogTitle className="font-bold flex justify-center text-2xl">
+              Add to Cart
+            </DialogTitle>
+            <Description className="flex justify-center items-center">
+              Add items to your cart
+            </Description>
+            <div className="flex flex-col space-y-3.5">
+              <div className="block">
+                <label
+                  htmlFor="product-name"
+                  className="block font-semibold text-sm leading-none mb-3 cursor-pointer text-gray-600"
+                >
+                  Product Name
+                </label>
+                <input
+                  id="product-name"
+                  type="text"
+                  autoComplete="off"
+                  autoCapitalize="off"
+                  className="py-2 bg-white px-4 md:px-5 w-full appearance-none transition duration-150 border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 ease-in-out border-gray-300 focus:outline-none focus:border-heading h-11 md:h-12 rounded-md"
+                />
+              </div>
+              <div className="block">
+                <label
+                  htmlFor="product-quantity"
+                  className="block font-semibold text-sm leading-none mb-3 cursor-pointer text-gray-600"
+                >
+                  Quantity
+                </label>
+                <input
+                  id="product-quantity"
+                  type="number"
+                  autoComplete="off"
+                  autoCapitalize="off"
+                  className="py-2 bg-white px-4 md:px-5 w-full appearance-none transition duration-150 border text-input text-xs lg:text-sm font-body placeholder-body min-h-12 ease-in-out border-gray-300 focus:outline-none focus:border-heading h-11 md:h-12 rounded-md"
+                />
+              </div>
+              <div>
+                <button className="text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-center border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md bg-heading text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart h-11 md:h-12 w-full mt-1.5 bg-black">
+                  Add to Cart
+                </button>
+              </div>
+            </div>
+          </DialogPanel>
+        </TransitionChild>
+      </div>
+    </div>
+  </Dialog>
+</Transition>
     </>
   );
 }

@@ -14,7 +14,7 @@ const Dropdown = () => {
           onClick={() => setIsOpen(!isOpen)}
         >
          <IconContext.Provider className='items-center font-semibold' value={{ className: "shared-class", size: 18 }}>
-            English-EN<LuChevronsUpDown />
+            <span className="mr-3">English-EN</span><LuChevronsUpDown />
          </IconContext.Provider>
         </button>
       </div>
