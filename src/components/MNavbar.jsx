@@ -1,193 +1,88 @@
-/* eslint-disable react/no-unescaped-entities */
-import { useCallback, useState } from "react";
-import { Link } from "react-router-dom";
-import { IoSearch } from "react-icons/io5";
-import { FiShoppingBag } from "react-icons/fi";
+import React, { useState } from "react";
 import { IconContext } from "react-icons";
-import Dropdown from "./Dropdown";
-import Demo from "./SubNavbar/Demo";
-import { Mens } from "./SubNavbar/Mens";
-import { Womens } from "./SubNavbar/Womens";
-import { Pages } from "./SubNavbar/Pages";
-import { ImGoogle2 } from "react-icons/im";
-import { FaFacebookSquare } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
-import "./Narbar.css";
-import { removeCart } from "../features/CartSlicer";
-import {
-  Description,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-  Transition,
-  TransitionChild,
-  Switch,
-} from "@headlessui/react";
+import { CgMenuLeft } from "react-icons/cg";
+import { IoClose, IoSearch } from "react-icons/io5";
+import { GoHome } from "react-icons/go";
+import { FiShoppingBag } from "react-icons/fi";
+import { FaFacebookSquare, FaRegUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import {
+    Description,
+    Dialog,
+    DialogPanel,
+    DialogTitle,
+    Transition,
+    TransitionChild,
+    Switch,
+  } from "@headlessui/react";
+import { ImGoogle2 } from "react-icons/im";
 
-function Navbar() {
-  const [Menu1, setMenu1] = useState("hidden");
-  const [Menu2, setMenu2] = useState("hidden");
-  const [Menu3, setMenu3] = useState("hidden");
-  const [Menu4, setMenu4] = useState("hidden");
-
-  const [show1, setShow1] = useState(false);
-  const [show2, setShow2] = useState(false);
-  const [show3, setShow3] = useState(false);
-  const [show4, setShow4] = useState(false);
-
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpen1, setIsOpen1] = useState(false);
-  const [isOpen2, setIsOpen2] = useState(false);
+export const MNavbar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const [isOpen1, setIsOpen1] = useState(false);
+    const [isOpen2, setIsOpen2] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const products = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+    const products = useSelector((state) => state.cart);
+    const dispatch = useDispatch();
 
-  const OpenDialog = () => {
-    setIsOpen(true);
-    setIsOpen1(false);
-  };
-  const OpenDialog1 = () => {
-    setIsOpen(false);
-    setIsOpen1(true);
-  };
-  const CloseDialog = () => {
-    setIsOpen(false);
-    setIsOpen1(false);
-  };
+    const OpenDialog = () => {
+        setIsOpen(true);
+        setIsOpen1(false);
+      };
+      const OpenDialog1 = () => {
+        setIsOpen(false);
+        setIsOpen1(true);
+      };
+      const CloseDialog = () => {
+        setIsOpen(false);
+        setIsOpen1(false);
+      };
 
-  const callback = useCallback((Menu, v) => {
-    setMenu1(Menu);
-    setShow1(v);
-  }, []);
-
-  const callback2 = useCallback((Menu, v) => {
-    setMenu2(Menu);
-    setShow2(v);
-  }, []);
-
-  const callback3 = useCallback((Menu, v) => {
-    setMenu3(Menu);
-    setShow3(v);
-  }, []);
-
-  const callback4 = useCallback((Menu, v) => {
-    setMenu4(Menu);
-    setShow4(v);
-  }, []);
-
-  function closeModal() {
-    setIsOpen2(false);
-  }
-
-  function openModal() {
-    setIsOpen2(true);
-  }
-  function openCartModal() {
-    setIsCartOpen(true);
-  }
-
-  function closeCartModal() {
-    setIsCartOpen(false);
-  }
-
-  const handleRemoveCart = (productID) => {
-    dispatch(removeCart(productID));
-  }
-
+      function closeModal() {
+        setIsOpen2(false);
+      }
+    
+      function openModal() {
+        setIsOpen2(true);
+      }
+      function openCartModal() {
+        setIsCartOpen(true);
+      }
+    
+      function closeCartModal() {
+        setIsCartOpen(false);
+      }
   return (
     <>
-      <div>
-        <div className="bg-white w-full h-[80px] flex justify-around sticky items-center z-10 shadow-lg">
-          <div className="w-[10%] grid justify-center font-bold">
-            <Link to="/">LOGO</Link>
-          </div>
-          <div className="flex w-[50%] contentHide items-stretch">
-            <Link
-              className="cborder"
-              onMouseEnter={() => {
-                setMenu1("block");
-                setShow1(true);
-              }}
-              onMouseLeave={() => {
-                setMenu1("hidden");
-                setShow1(false);
-              }}
-            >
-              <div className="py-6 px-11">Demo</div>
-            </Link>
-            <Link
-              className="cborder"
-              onMouseEnter={() => {
-                setMenu2("block");
-                setShow2(true);
-              }}
-              onMouseLeave={() => {
-                setMenu2("hidden");
-                setShow2(false);
-              }}
-            >
-              <div className="py-6 px-11">Mens</div>
-            </Link>
-            <Link
-              className="cborder"
-              onMouseEnter={() => {
-                setMenu3("block");
-                setShow3(true);
-              }}
-              onMouseLeave={() => {
-                setMenu3("hidden");
-                setShow3(false);
-              }}
-            >
-              <div className="py-6 px-11">Womens</div>
-            </Link>
-            <Link
-              className="cborder"
-              onMouseEnter={() => {
-                setMenu4("block");
-                setShow4(true);
-              }}
-              onMouseLeave={() => {
-                setMenu4("hidden");
-                setShow4(false);
-              }}
-            >
-              <div className="py-6 px-11">Pages</div>
-            </Link>
-          </div>
-          <div className="w-[40%] flex justify-around items-center">
-            <Dropdown />
-            <div className="w-[30%] flex justify-around contentHide">
-              <IconContext.Provider
-                value={{ className: "shared-class", size: 25 }}
-              >
-                <button onClick={openModal}>
-                  <IoSearch />
-                </button>
-                <button onClick={OpenDialog} className="font-semibold">
-                  Sign In
-                </button>
-                <button className="relative" onClick={openCartModal}>
-                  <FiShoppingBag />
-                  <div className=" rounded-full bg-purple-700 w-4 h-4 -top-1 -right-1  text-white text-[10px] absolute">
+    <IconContext.Provider value={{ className: "shared-class", size: 25 }}>
+      <div className="bg-white shadow-2xl fixed bottom-0 items-center justify-between px-5 w-full h-14 z-10 flex">
+        <div>
+          <button>
+            <CgMenuLeft />
+          </button>
+        </div>
+        <div>
+            <button onClick={openModal}><IoSearch/></button>
+        </div>
+        <div>
+            <Link to='/'><GoHome /></Link>
+        </div>
+        <div>
+            <button className="relative" onClick={openCartModal}><FiShoppingBag/>
+            <div className=" rounded-full bg-purple-700 w-4 h-4 -top-1 -right-1  text-white text-[10px] absolute">
                     {products.length}
-                  </div>
-                </button>
-              </IconContext.Provider>
-            </div>
-          </div>
+                  </div></button>
+        </div>
+        <div>
+            <button onClick={OpenDialog} ><FaRegUser /></button>
         </div>
       </div>
+    </IconContext.Provider>
 
-      <Demo show={show1} CMenu={Menu1} parentCallback={callback} />
-      <Mens show={show2} CMenu={Menu2} parentCallback={callback2} />
-      <Womens show={show3} CMenu={Menu3} parentCallback={callback3} />
-      <Pages show={show4} CMenu={Menu4} parentCallback={callback4} />
-      {/* -------------------------------------------Login----------------------------------------- */}
-      <Transition appear show={isOpen}>
+    <Transition appear show={isOpen}>
         <Dialog
           as="div"
           open={isOpen}
@@ -213,7 +108,7 @@ function Navbar() {
                     onClick={CloseDialog}
                     className="close fixed z-10 inline-flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-white shadow text-gray-600 transition duration-200 focus:outline-none focus:text-gray-800 focus:shadow-md hover:text-gray-800 hover:shadow-md "
                   >
-                    <IoClose />
+                    <IoClose/>
                   </button>
                   <DialogTitle className="font-bold flex justify-center text-2xl">
                     LOGO
@@ -455,7 +350,7 @@ function Navbar() {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <div className="flex  max-w-md my-8 px-4 h-16 overflow-hidden text-left items-center transition-all transform bg-white shadow-xl rounded-xl">
+              <div className="flex  max-w-md my-24 px-4 h-16 overflow-hidden text-left items-center transition-all transform bg-white shadow-xl rounded-xl">
                 <DialogTitle
                   as="h3"
                   className="text-lg mr-4 font-medium leading-6"
@@ -774,7 +669,7 @@ function Navbar() {
                   <div>
                     <button className="text-[13px] md:text-sm leading-4 inline-flex items-center cursor-pointer transition ease-in-out duration-300 font-semibold font-body text-center justify-between border-0 border-transparent placeholder-white focus-visible:outline-none focus:outline-none rounded-md  bg-heading text-white px-5 md:px-6 lg:px-8 py-4 md:py-3.5 lg:py-4 hover:text-white hover:bg-gray-600 hover:shadow-cart h-11 md:h-12 w-full mt-2 bg-black">
                       Proceed To Checkout
-                      <span className="pl-7 border-l-2">{products.reduce((total, product) => total + product.price, 0)}</span>
+                      <span className="pl-7 border-l-2">${products.reduce((total, product) => total + product.price, 0)}</span>
                     </button>
                   </div>
                 </DialogPanel>
@@ -785,6 +680,4 @@ function Navbar() {
       </Transition>
     </>
   );
-}
-
-export default Navbar;
+};
